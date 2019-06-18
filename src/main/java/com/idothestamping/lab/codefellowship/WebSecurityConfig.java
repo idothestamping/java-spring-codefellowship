@@ -45,7 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 // add any new routes after successful login here:
-                    .defaultSuccessUrl("/getPrinciple", true)
+                    .defaultSuccessUrl("/index", true)
                     .failureUrl("/login?error=true")
                 .and()
                 .logout()

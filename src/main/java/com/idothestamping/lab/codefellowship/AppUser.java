@@ -31,7 +31,6 @@ public class AppUser implements UserDetails {
     public AppUser() {}
 
     public AppUser(String username, String password, String firstname, String lastname, Date dob, String bio) {
-//    public AppUser(String username, String password) {
         this.username = username;
         this.password = password;
         this.firstname = firstname;
@@ -69,9 +68,9 @@ public class AppUser implements UserDetails {
         this.lastname = lastname;
     }
 
-    public Date getDateofBirth() { return this.dob; }
+    public Date getDob() { return this.dob; }
 
-    public void setDateofBirth(Date dob) {
+    public void setDob(Date dob) {
         this.dob = dob;
     }
 

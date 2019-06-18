@@ -11,11 +11,18 @@ import java.security.Principal;
 @Controller //annotation
 public class CodefellowshipController {
 
-    @GetMapping("/getPrinciple")
-    public String getIndex(Principal p, Model m) {
+//    @GetMapping("/getPrinciple")
+//    public String getIndex(Principal p, Model m) {
+//        AppUser currentUser = (AppUser)((UsernamePasswordAuthenticationToken) p).getPrincipal();
+//        System.out.println(p.getName());
+//        m.addAttribute("principal", currentUser);
+//        return "index";
+//    }
+
+    @GetMapping("/users/{id}")
+    public String getMyProfile(Principal p, Model m){
         AppUser currentUser = (AppUser)((UsernamePasswordAuthenticationToken) p).getPrincipal();
-        System.out.println(p.getName());
-        m.addAttribute("principal", currentUser);
+        m.addAttribute("principal",currentUser);
         return "index";
     }
 }

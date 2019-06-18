@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
@@ -27,29 +28,28 @@ public class AppUserController {
     PasswordEncoder passwordEncoder;
 
 
-    @PostMapping("/signup")
-    public RedirectView createUser(@RequestParam String username, @RequestParam String password, @RequestParam String firstname, @RequestParam String lastname, @RequestParam Date dob, @RequestParam String bio) {
-        AppUser newUser = new AppUser(username, passwordEncoder.encode(password), firstname, lastname, dob, bio);
-        appUserRepository.save(newUser);
-        Authentication authentication = new UsernamePasswordAuthenticationToken(newUser, null, new ArrayList<>());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        return new RedirectView("/getPrinciple");
+    @GetMapping("/signup")
+    public String getSignupPage(Model m) {
+        m.addAttribute("newuser",new AppUser());
+        return "signup";
     }
 
-//    @GetMapping("/getPrinciple")
-//    public String getPrinciple(Principal p, Model m) {
-//        m.addAttribute("principal", p);
-//        return "index";
-//    }
+    @PostMapping("/signup")
+    public String getSignUp(@ModelAttribute AppUser newuser){
+        AppUser res = new AppUser(newuser.username,passwordEncoder.encode(newuser.password),newuser.firstname,newuser.lastname,newuser.dob,newuser.bio);
+        appUserRepository.save(res);
+
+        AppUser user = appUserRepository.findByUsername(res.username);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(res, null, new ArrayList<>());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        long id = user.id;
+        return "redirect:/users/"+id;
+    }
 
     @GetMapping("/login")
     public String getLoginPage() {
         return "login";
-    }
-
-    @GetMapping("/signup")
-    public String getSignupPage() {
-        return "signup";
     }
 
 }
