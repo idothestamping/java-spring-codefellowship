@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rawr</title>
+</head>
+<body>
+<h1>Rendering Index.html!</h1>
+    Welcome,
+        <span th:text="${principal.username}"></span><br>
+        <span th:text="${principal.firstname}"></span><br>
+        <span th:text="${principal.lastname}"></span><br>
+        <span th:text="${principal.dob}"></span>
+        <span th:text="${principal.bio}"></span>
+    </h3>
+
+<a href="/potato">Log Out!</a>
+</body>
+</html>
