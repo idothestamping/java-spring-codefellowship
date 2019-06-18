@@ -1,20 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Rawr</title>
+    <title>Home</title>
 </head>
 <body>
-<h1>Rendering Index.html!</h1>
-    Welcome,
-        <span th:text="${principal.username}"></span><br>
-        <span th:text="${principal.firstname}"></span><br>
-        <span th:text="${principal.lastname}"></span><br>
-        <span th:text="${principal.dob}"></span>
-        <span th:text="${principal.bio}"></span>
-    </h3>
-
-<a href="/potato">Log Out!</a>
+<h1>Welcome on board!</h1>
+<a href="/login">Log In </a>
+<br>
+<a href="/signup">Sign Up </a>
 </body>
 </html>

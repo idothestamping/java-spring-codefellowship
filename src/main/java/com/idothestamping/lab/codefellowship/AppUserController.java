@@ -27,6 +27,10 @@ public class AppUserController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @GetMapping("/login")
+    public String getLoginPage() {
+        return "login";
+    }
 
     @GetMapping("/signup")
     public String getSignupPage(Model m) {
@@ -36,7 +40,7 @@ public class AppUserController {
 
     @PostMapping("/signup")
     public String getSignUp(@ModelAttribute AppUser newuser){
-        AppUser res = new AppUser(newuser.username,passwordEncoder.encode(newuser.password),newuser.firstname,newuser.lastname,newuser.dob,newuser.bio);
+        AppUser res = new AppUser(newuser.username,passwordEncoder.encode(newuser.password),newuser.firstName,newuser.lastName,newuser.dateofBirth,newuser.bio);
         appUserRepository.save(res);
 
         AppUser user = appUserRepository.findByUsername(res.username);
@@ -47,9 +51,19 @@ public class AppUserController {
         return "redirect:/users/"+id;
     }
 
-    @GetMapping("/login")
-    public String getLoginPage() {
-        return "login";
+    @GetMapping("/users/{id}")
+    public String getMyProfile(Principal p, Model m){
+        AppUser currentUser = (AppUser)((UsernamePasswordAuthenticationToken) p).getPrincipal();
+        m.addAttribute("principal",currentUser);
+        return "profile";
+    }
+
+    @GetMapping("/profile")
+    public String afterLogin(Principal p, Model m){
+        // From Evan
+        AppUser currentUser = (AppUser)((UsernamePasswordAuthenticationToken) p).getPrincipal();
+        m.addAttribute("principal",currentUser);
+        return "profile";
     }
 
 }
