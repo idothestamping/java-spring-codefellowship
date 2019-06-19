@@ -16,28 +16,33 @@
 
 <div class='row' style="margin-top:60px;">
     <div class='col s8 m8 l8'>
-        <h4>My Profile</h4>
-        <img src="https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?cs=srgb&dl=beautiful-beauty-blue-414612.jpg&fm=jpg" height="200px" width="200px"/>
-        <p>Username: <span th:text="${principal.username}"/></p>
-        <p>First Name: <span th:text="${principal.firstName}"/></p>
-        <p>Last Name: <span th:text="${principal.lastName}"/></p>
-        <p>Date of Birth: <span th:text="${principal.dateofBirth}"/></p>
-        <p>Bio: <span th:text="${principal.bio}"/></p>
+        <p>Welcome, <span th:text="${loggedInUser.username}"></span></p>
+        <p>Your Postings:</p>
+        <ul>
+            <li th:each="post : ${loggedInUser.post}" style="border: 2px solid black;
+  border-radius: 5px;">
+                <a th:href="'/post/' + ${post.id}">
+                    <span th:text="${post.body}"></span><br>
+                    <span style="font-size:20px" th:text="${post.ts}"></span>
+                </a>
+            </li>
+        </ul>
     </div>
 
     <div class='col s4 m4 l4 profile z-depth-5'>
-        <p>Create a Post</p>
+        <p>Menu</p>
         <div class='faves'>
             <div class="col s12 m12 l12 center faveButtons">
             </div>
         </div>
-        <a href="/post">Postings</a><br>
+        <a href="/post/add">Create a New Post</a><br>
+        <a href="/post">Back to Postings</a><br>
         <a href="/potato">Log Out</a>
     </div>
 </div>
 
 <!--JavaScript at end of body for optimized loading-->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 </body>
 </html>

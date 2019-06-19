@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link href="/postAdd.css" rel="stylesheet" />
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css}"  media="screen,projection"/>
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar" role="navbar"></div>
+
+<form action="/post" name="comment_text" method="POST">
+    <textarea placeholder="This is an awesome comment box"
+              rows="20" name="body"
+              id="comment_text" cols="40"
+              class="ui-autocomplete-input"
+              autocomplete="off"
+              role="textbox"
+              aria-autocomplete="list"
+              aria-haspopup="true"></textarea>
+    <input type="submit" />
+</form>
+
+</body>
+</html>

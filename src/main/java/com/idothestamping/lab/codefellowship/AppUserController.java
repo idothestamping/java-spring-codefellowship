@@ -28,7 +28,8 @@ public class AppUserController {
     PasswordEncoder passwordEncoder;
 
     @GetMapping("/login")
-    public String getLoginPage() {
+    public String getLoginPage(@RequestParam(required = false, defaultValue = "") String showMessage, Model m) {
+        m.addAttribute("shouldShowExtraMessage", !showMessage.equals(""));
         return "login";
     }
 
