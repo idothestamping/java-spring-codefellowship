@@ -1,0 +1,24 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    color: #172696;
+    background: #F0F0F0;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+span {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    color: #172696;
+}
+.navbar {
+	background-color: #3f51b5 !important
+}
