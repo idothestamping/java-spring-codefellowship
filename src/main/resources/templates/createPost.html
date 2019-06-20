@@ -4,26 +4,33 @@
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <link href="/postAdd.css" rel="stylesheet" />
+    <link href="/style.css" rel="stylesheet" />
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css}"  media="screen,projection"/>
 </head>
 <body>
+<section>
 <div th:replace="fragments/navbar :: navbar" role="navbar"></div>
-
+<div class='row'>
+    <p>Add your posting:</p>
 <form action="/post" name="comment_text" method="POST">
-    <textarea placeholder="This is an awesome comment box"
-              rows="20" name="body"
-              id="comment_text" cols="40"
-              class="ui-autocomplete-input"
-              autocomplete="off"
-              role="textbox"
-              aria-autocomplete="list"
-              aria-haspopup="true"></textarea>
-    <input type="submit" />
+    <textarea name="styled-textarea" id="styled" onfocus="this.value=''; setbg('#e5fff3');" onblur="setbg('white')">Enter your comment here...</textarea>
+    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+        <i class="material-icons right">send</i>
+    </button>
 </form>
-
+</div>
+</section>
+<footer class="footer">
+    <div>
+        <p class="text-muted"><footer th:replace="fragments/footer :: footer" role="footer"></footer></p>
+    </div>
+</footer>
+<!--JavaScript at end of body for optimized loading-->
+<script type="text/javascript" src="/css.js">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 </body>
 </html>

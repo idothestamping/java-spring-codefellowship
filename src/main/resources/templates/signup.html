@@ -2,7 +2,7 @@
 <html lang="en"  xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <link href="/styles.css" rel="stylesheet" />
+    <link href="/style.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css}"  media="screen,projection"/>
@@ -26,33 +26,33 @@
                     </div>
 
                     <div class='row'>
-                        <div class='input-field col s12'>
+                        <div class='input-field col s6'>
                             <input class='validate' type='text' th:field="*{username}" name='username' id='username' />
                             <label for='username'>Enter your Username</label>
                         </div>
-                        <div class='input-field col s12'>
+                        <div class='input-field col s6'>
                             <input class='validate' type='password' th:field="*{password}" name='password' id='password' />
                             <label for='password'>Enter your Password</label>
                         </div>
                     </div>
 
                     <div class='row'>
-                        <div class='input-field col s12'>
+                        <div class='input-field col s6'>
                             <input class='validate'type="text" th:field="*{firstName}" id="firstname"/>
                             <label for="firstname">Enter your First Name</label>
                         </div>
-                        <div class='input-field col s12'>
+                        <div class='input-field col s6'>
                             <input class='validate' type='text' th:field="*{lastName}" id="lastname"/>
                             <label for='lastname'>Enter your Last Name</label>
                         </div>
                     </div>
 
                     <div class='row'>
-                        <div class='input-field col s12'>
+                        <div class='input-field col s6'>
                             <input class='validate' type="date" th:field="*{dateofBirth}" id="datepicker" />
                             <label for='datepicker'></label>
                         </div>
-                        <div class='input-field col s12'>
+                        <div class='input-field col s6'>
                             <input class='validate' type='text' th:field="*{bio}" id="bio"/>
                             <label for='bio'>Enter your Bio</label>
                         </div>
@@ -77,7 +77,11 @@
     <div class="section"></div>
     <div class="section"></div>
 </main>
-
+<footer class="footer">
+    <div>
+        <p class="text-muted"><footer th:replace="fragments/footer :: footer" role="footer"></footer></p>
+    </div>
+</footer>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 </body>

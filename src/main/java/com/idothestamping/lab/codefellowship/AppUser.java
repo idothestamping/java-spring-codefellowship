@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class AppUser implements UserDetails {
@@ -28,6 +29,14 @@ public class AppUser implements UserDetails {
 
     @OneToMany(mappedBy = "creator")
     List<Post> post;
+
+    public Set<AppUser> getFriends() {
+        return this.friends;
+    }
+
+    @ManyToMany
+    Set<AppUser> friends;
+
 
     public AppUser() {}
 
@@ -78,6 +87,8 @@ public class AppUser implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public long getId() { return id; }
 
     public String getFirstName() {
         return firstName;
