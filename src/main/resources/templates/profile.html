@@ -32,12 +32,13 @@
             </div>
         </div>
         <a href="/post">View your Postings</a><br>
+        <a href="/allusers">Show all Users</a><br>
         <a href="/potato">Log Out</a>
 
-        <p>List of other users:</p>
+        <h4>List of friends:</h4>
         <ul>
             <li class="friends" th:each="user : ${allUsers}">
-                <form method="POST" action="#" th:action="@{/friends/${user.id}/friends}">
+                <form method="POST" action="#" th:object="${friend}" th:action="'/dinosaurs/' + ${user.id} + '/friends'">
                     <input name="name" type="hidden" th:value="${user.id}">
                     <button class="secondary-content cardcolor" type="submit" ><i class="material-icons">check_circle</i></button>
                 </form>
