@@ -8,15 +8,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class AppUserController {
@@ -64,7 +62,37 @@ public class AppUserController {
         // From Evan
         AppUser currentUser = (AppUser)((UsernamePasswordAuthenticationToken) p).getPrincipal();
         m.addAttribute("principal",currentUser);
+
+        Iterable<AppUser> allUsers = appUserRepository.findAll();
+        m.addAttribute("allUsers",allUsers);
         return "profile";
+    }
+
+    @GetMapping("/friends/{id}")
+    public String getMyProfile(@PathVariable Long id, Model m){
+        AppUser friend = appUserRepository.findById(id).get();
+        m.addAttribute("principal", friend);
+
+        Iterable<AppUser> allUsers = appUserRepository.findAll();
+        m.addAttribute("allUsers",allUsers);
+        return "profile";
+    }
+
+    @PostMapping("/friends/{id}/friends")
+    public RedirectView addFriend(@PathVariable Long id, Long friend, Principal p, Model m) {
+        // we have the ID of two users
+        // go get actual AppUser instances
+        AppUser curfriend = appUserRepository.findById(id).get();
+        AppUser newfriend = appUserRepository.findById(friend).get();
+        // use the principal: check both of the dinosaurs belong to the currently logged in user
+        // make them be friends
+        curfriend.friends.add(newfriend);
+        newfriend.friends.add(curfriend);
+        // save! yes please omg
+        appUserRepository.save(curfriend);
+        appUserRepository.save(newfriend);
+        // redirect back to the current dino
+        return new RedirectView("/friends/" + id);
     }
 
 }

@@ -31,12 +31,10 @@ public class Post {
     }
 
     public AppUser getCreator() {
-
         return creator;
     }
 
     public String getBody() {
-
         return body;
     }
 
