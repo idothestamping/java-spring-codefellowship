@@ -25,11 +25,34 @@ public class AppUserController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+
+
     @GetMapping("/login")
     public String getLoginPage(@RequestParam(required = false, defaultValue = "") String showMessage, Model m) {
         m.addAttribute("shouldShowExtraMessage", !showMessage.equals(""));
         return "login";
     }
+
+    //@PostMapping: ("/login" POST route is done by Spring magic on WebSecurityConfig  ".loginPage("/login")")
+
+    @GetMapping("/profile") //  Auto login route from WebSecurityConfig: .defaultSuccessUrl("/profile",
+    public String afterLogin(Principal p, Model m){
+        // From Evan
+        AppUser currentUser = (AppUser)((UsernamePasswordAuthenticationToken) p).getPrincipal();
+        m.addAttribute("principal",currentUser);
+
+        Iterable<AppUser> allUsers = appUserRepository.findAll();
+        m.addAttribute("allUsers",allUsers);
+        return "profile";
+    }
+
+    @GetMapping("/allusers")
+    public String showAllUsers(Model m){
+        Iterable<AppUser> allUsers = appUserRepository.findAll();
+        m.addAttribute("allUsers",allUsers);
+        return "allUsers";
+    }
+
 
     @GetMapping("/signup")
     public String getSignupPage(Model m) {
@@ -47,24 +70,23 @@ public class AppUserController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         long id = user.id;
-        return "redirect:/users/"+id;
+        return "redirect:/user/"+id;
     }
 
-    @GetMapping("/users/{id}")
-    public String getMyProfile(Principal p, Model m){
+    @GetMapping("/user/{id}")
+    public String getMyProfile(@PathVariable Principal p, Model m, Long id){
         AppUser currentUser = (AppUser)((UsernamePasswordAuthenticationToken) p).getPrincipal();
         m.addAttribute("principal",currentUser);
+
+        AppUser friend = appUserRepository.findById(id).get();
+        m.addAttribute("friend", friend);
         return "profile";
     }
 
-    @GetMapping("/profile")
-    public String afterLogin(Principal p, Model m){
-        // From Evan
-        AppUser currentUser = (AppUser)((UsernamePasswordAuthenticationToken) p).getPrincipal();
-        m.addAttribute("principal",currentUser);
-
-        Iterable<AppUser> allUsers = appUserRepository.findAll();
-        m.addAttribute("allUsers",allUsers);
+    @PostMapping("/users/{id}")  // Get specific user data
+    public String getFriendProfile(Model m, Long id){
+        AppUser friend = appUserRepository.findById(id).get();
+        m.addAttribute("friend", friend);
         return "profile";
     }
 
@@ -92,7 +114,7 @@ public class AppUserController {
         appUserRepository.save(curfriend);
         appUserRepository.save(newfriend);
         // redirect back to the current dino
-        return new RedirectView("/friends/" + id);
+        return new RedirectView("/user/" + id);
     }
 
 }
